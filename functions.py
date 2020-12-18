@@ -26,7 +26,7 @@ def get_access_token(client_id, client_secret, username, password):
 
 
 
-def get_auth_file(smartAccountDomain, virtualAccountName, access_token, hostname, serialNumber, reservationCode, tagList):
+def get_auth_file(smartAccountDomain, virtualAccountName, access_token, hostname, serialNumber, reservationCode, tagList, filedir):
 
 	url = "https://swapi.cisco.com/services/api/smart-accounts-and-licensing/v1/accounts/"+smartAccountDomain+ \
 	      "/virtual-accounts/"+virtualAccountName+"/reserve-licenses"
@@ -63,7 +63,7 @@ def get_auth_file(smartAccountDomain, virtualAccountName, access_token, hostname
 			response_dict = json.loads(response.text)
 			auth_code = response_dict["authorizationCodes"][0]["authorizationCode"]
 
-			filename = hostname+"_AuthorizationCode_SN_"+serialNumber+".txt"
+			filename = filedir+"/"+hostname+"_AuthorizationCode_SN_"+serialNumber+".txt"
 
 			with open(filename, "w+") as file:
 				file.write(auth_code)

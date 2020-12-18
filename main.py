@@ -1,5 +1,7 @@
 from functions import get_access_token, get_auth_file
+from datetime import datetime
 import json
+import os
 
 with open("config.json") as config_json:
 	config_dict = json.load(config_json)
@@ -16,6 +18,11 @@ with open("hosts.json") as hosts_json:
 
 access_token = get_access_token(client_id, client_secret, username, password)
 
+filedir = "AuthFiles_"+datetime.today().strftime('%Y-%m-%d')
+
+if not os.path.isdir(filedir):
+	os.mkdir(filedir)
+
 for hostname in host_dict.keys():
 	serialNumber = host_dict[hostname][0]
 	reservationCode = host_dict[hostname][1]
@@ -23,6 +30,6 @@ for hostname in host_dict.keys():
 
 	print("Processing "+hostname+" - SN:"+serialNumber)
 
-	output = get_auth_file(smartAccountDomain, virtualAccountName, access_token, hostname, serialNumber, reservationCode, tagList)
+	output = get_auth_file(smartAccountDomain, virtualAccountName, access_token, hostname, serialNumber, reservationCode, tagList, filedir)
 
 	print(output)
