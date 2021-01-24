@@ -23,10 +23,10 @@ filedir = "AuthFiles_"+datetime.today().strftime('%Y-%m-%d')
 if not os.path.isdir(filedir):
 	os.mkdir(filedir)
 
-for hostname in host_dict.keys():
-	serialNumber = host_dict[hostname][0]
-	reservationCode = host_dict[hostname][1]
-	tagList = host_dict[hostname][2]
+for serialNumber in host_dict.keys():
+	hostname = host_dict[serialNumber][0]
+	reservationCode = host_dict[serialNumber][1]
+	tagList = host_dict[serialNumber][2]
 
 	print("Processing "+hostname+" - SN:"+serialNumber)
 
